@@ -1,1 +1,1 @@
-Selenium exercises
+Selenium exercises on Windows/Mac
