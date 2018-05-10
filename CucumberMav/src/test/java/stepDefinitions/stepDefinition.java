@@ -47,12 +47,12 @@ public class stepDefinition {
         //verify the home page
     	System.out.println("Verified home page");
     }
-
+    /*
     @And("^Cards displayed are \"([^\"]*)\"$")
     public void cards_displayed_are_something(String strArg1) throws Throwable {
     	System.out.println("Cards displayed is " + strArg1);
     }
-
+*/
     
     @When("^User signup with the following details$")
     public void user_signup_with_the_following_details(DataTable data) throws Throwable {
