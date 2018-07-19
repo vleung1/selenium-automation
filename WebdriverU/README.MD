@@ -1,1 +1,1 @@
-Cucumber and Selenium project using Maven and TestNG
+Cucumber and Selenium framework with Maven and TestNG
