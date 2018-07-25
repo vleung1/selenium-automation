@@ -23,47 +23,41 @@ import org.junit.Assert;
 
 public class ContactUsSteps extends DriverFactory {
 
-	WebDriver driver;
-
+	//page object model using custom methods defined in sub page
+	
 	@Given("^the user is at the contact us form$")
-	public void the_user_is_at_the_contact_us_form() {
-		getDriver().get("http://www.webdriveruniversity.com/Contact-Us/contactus.html");
+	public void the_user_is_at_the_contact_us_form() throws IOException {
+		contactUsPage.getContactUsPage();
 	}
 
 	@When("^the user enters a valid firstname$")
-	public void the_user_enters_a_valid_firstname() {
-		getDriver().findElement(By.cssSelector("input[name='first_name']")).sendKeys("tom");
+	public void the_user_enters_a_valid_firstname() throws Exception {
+		contactUsPage.enterFirstName("Vin");
 	}
 
 	@And("^the user enters a valid lastname$")
-	public void the_user_enters_a_valid_lastname(DataTable dataTable) {
-		List<List<String>> data = dataTable.raw();
-		getDriver().findElement(By.cssSelector("input[name='last_name']")).sendKeys(data.get(0).get(1));
+	public void the_user_enters_a_valid_lastname(DataTable dataTable) throws Exception {
+		contactUsPage.enterLasttName(dataTable, 0, 2);
 	}
 
 	@And("^the user enters a valid email address$")
-	public void the_user_enters_a_valid_email_address() {
-		getDriver().findElement(By.cssSelector("input[name='email']")).sendKeys("tom@mail.com");
+	public void the_user_enters_a_valid_email_address() throws Exception {
+		contactUsPage.enterEmailAddress("vin@mail.com");
 	}
 
 	@And("^the user enters comments$")
-	public void the_user_enters_comments(DataTable dataTable) {
-		List<List<String>> data = dataTable.raw();
-		getDriver().findElement(By.cssSelector("textarea[name='message']")).sendKeys(data.get(0).get(0));
-		getDriver().findElement(By.cssSelector("textarea[name='message']")).sendKeys(data.get(0).get(1));
+	public void the_user_enters_comments(DataTable dataTable) throws Exception {
+		contactUsPage.enterComments(dataTable, 0, 1);
 	}
 
 	@And("^the user clicks on the submit button$")
-	public void the_user_clicks_on_the_submit_button() {
-		getDriver().findElement(By.xpath("//input[@value='SUBMIT']")).click();
+	public void the_user_clicks_on_the_submit_button() throws Exception {
+		contactUsPage.clickOnSubmiButton();
 	}
 
 	@Then("^the information is successfully submitted$")
-	public void the_information_is_successfully_submitted() {
-		// Thank You for your Message!
-		WebElement thanksContactUsPage = getDriver().findElement(By.xpath(".//*[@id='contact_reply']/h1"));
-		Assert.assertEquals("thankyouforyourmessage!",
-				thanksContactUsPage.getText().toLowerCase().replaceAll("[ ()0-9]", ""));
+	public void the_information_is_successfully_submitted() throws Exception {
+		contactUsPage.confirmContactUsFormSubmissionWasSuccessful();
 	}
 
 }

@@ -7,10 +7,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
+
+import pageObjects.BasePage;
+import pageObjects.ContactUsPage;
+import pageObjects.ProductPage;
 
 public class DriverFactory {
 
 	public static WebDriver driver;
+	public static BasePage basePage;
+	public static ContactUsPage contactUsPage;
+	public static ProductPage productPage;
 
 	public WebDriver getDriver() {
 		try {
@@ -58,6 +66,9 @@ public class DriverFactory {
 			System.out.println("Unable to load browser: " + e.getMessage());
 		} finally {
 			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			basePage = PageFactory.initElements(driver, BasePage.class);
+			contactUsPage = PageFactory.initElements(driver, ContactUsPage.class);
+			productPage = PageFactory.initElements(driver, ProductPage.class);
 		}
 		return driver;
 	}

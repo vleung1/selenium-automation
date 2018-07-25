@@ -16,11 +16,12 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pageObjects.BasePage;
 import utils.DriverFactory;
 
 public class ProductSteps extends DriverFactory {
 
-	WebDriver driver;
+	//page object model using methods from base page and also custom methods from sub page
 	
 	@Given("^the user is at the \"([^\"]*)\" page$")
     public void the_user_is_at_the_something_page(String url) {
@@ -28,15 +29,14 @@ public class ProductSteps extends DriverFactory {
     }
 
     @When("^the user clicks on \"([^\"]*)\"$")
-    public void the_user_clicks_on_something(String button) {
-    		getDriver().findElement(By.id(button)).click();
-    }
+    public void the_user_clicks_on_something(String button) throws IOException, InterruptedException {
+    		basePage.waitAndClickElementsUsingByLocator(By.id(button));
+     }
 
     @Then("^the user is presented with a promo alert$")
-    public void the_user_is_presented_with_a_promo_alert() throws InterruptedException {
-    		WebDriverWait wait = new WebDriverWait(getDriver(), 15);
-    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Proceed']")));
-    		getDriver().findElement(By.xpath("//button[text()='Proceed']")).click();
+    public void the_user_is_presented_with_a_promo_alert() throws InterruptedException, IOException {
+    		productPage.printSpecialOffersVoucherCode();
+    		productPage.clickOnProceedButton_Popup();
     }
 	
 }
